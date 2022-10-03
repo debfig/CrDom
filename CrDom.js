@@ -40,6 +40,16 @@
             this.eq = [thiss];
             return this
         }
+
+        //修改元素内容
+        _$text(txt) {
+            for (let i of this.eq) {
+                i.innerText = txt;
+            }
+            return this
+        }
+
+
     }
 
     window.$ = new CrDom();
