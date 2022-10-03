@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* p {
+            
+        } */
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>world</p>
+        <p>world</p>
+        <span>ok</span>
+        <span>os</span>
+    </div>
+</body>
+<script src="./CrDom.js"></script>
+<script>
+
+    $._$('span')._$style({
+        color: 'red',
+        fontSize: '40px',
+        backgroundColor: '#555'
+    })._$on('click', function (e) {
+        $._$this(this)._$style({
+            color: 'red',
+            fontSize: '40px',
+            backgroundColor: '#fff'
+        })
+    })
+
+    $._$('p')._$style({
+        width: '100px',
+        display: 'block',
+        margin: '0',
+        backgroundColor: '#555'
+    })._$on('mouseenter', function () {
+        $._$this(this)._$style('backgroundColor', '#fff');
+    })._$on('mouseleave', function () {
+        $._$this(this)._$style('backgroundColor', '#555');
+    })
+
+
+</script>
+
+</html>
