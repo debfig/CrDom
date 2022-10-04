@@ -105,3 +105,11 @@
         return this
     }
 ```
+6. 元素的隐藏与显示    在点击事件中 请使用 `let node = $('.tu')` 使用变量来接收到实例,不要直接使用 `$('.tu').display()`因为这样每次调用都会生成一个新对象 
+```
+//直接使用 display() 会隐藏显示交替，传入 true 隐藏 传入 false 显示 
+    let node = $('.tu')
+    $('span').eq(0).on('click', function () {
+        node.display()
+    }).setText('hello')
+```

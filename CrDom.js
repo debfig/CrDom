@@ -11,6 +11,8 @@
     //* CrDom 构造函数
     function CrDom(doms = '') {
         this.dom = this.ifthis(doms);
+        //显示与隐藏
+        this.state = true;
     }
 
     //========================================================================================
@@ -90,7 +92,31 @@
         return this
     }
 
-
+    //TODO 隐藏与显示
+    CrDom.prototype.display = function (state) {
+        if (state == undefined) {
+            if (this.state) {
+                for (let i of this.dom) {
+                    i.style.display = 'none';
+                }
+                this.state = false;
+            } else {
+                for (let i of this.dom) {
+                    i.style.display = 'block';
+                }
+                this.state = true;
+            }
+        } else if (state) {
+            for (let i of this.dom) {
+                i.style.display = 'none';
+            }
+        } else {
+            for (let i of this.dom) {
+                i.style.display = 'block';
+            }
+        }
+        return this;
+    }
 
 
 
