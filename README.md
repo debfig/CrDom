@@ -113,3 +113,81 @@
         node.display()
     }).setText('hello')
 ```
+7. 淡入淡出
++ 7.1  淡入 使用 `slowin()` 传入一个时间参数 单位 S 
+```js
+    //* 淡入
+    CrDom.prototype.slowin = function (tim) {
+        let _this = this;
+        let temp = 100 - (amount * 100);
+        amount = amount != 1 ? amount : 1;
+        ergodic(this.dom, function (value) {
+            value.style.opacity = amount;
+        })
+        clearInterval(time);
+        time = setInterval(function () {
+            if (temp <= 100) {
+                ergodic(_this.dom, function (value) {
+                    value.style.opacity = amount = (100 - temp) / 100;
+                });
+                temp++;
+            } else {
+                clearInterval(time);
+                ergodic(_this.dom, function (value) {
+                    value.style.display = 'none';
+                })
+            }
+        }, (tim * 1000) / 100);
+        return this;
+    }
+```
++ 7.2 淡出 使用 `slowon()` 传入一个时间参数 单位 S 
+```js
+    //* 淡出
+    CrDom.prototype.slowou = function (tim) {
+        let _this = this;
+        let temp = amount * 100;
+        amount = amount != 0 ? amount : 0;
+        ergodic(this.dom, function (value) {
+            value.style.display = 'block';
+            value.style.opacity = amount;
+        })
+        clearInterval(times);
+        times = setInterval(function () {
+            if (temp <= 100) {
+                ergodic(_this.dom, function (value) {
+                    value.style.opacity = amount = temp / 100;
+                });
+                temp++;
+            } else {
+                clearInterval(times);
+            }
+        }, (tim * 1000) / 100);
+        return this;
+    }
+```
++ 7.3 淡入淡出交替 它是通过分别调用对象内的 淡入淡出 方法实现的 <br>
+   使用 `change()` 传入两个参数 第一个是变化时间 单位 S ，第二个是改变第一次调用时是淡入还是淡出 默认参数是 `true` 淡入 
+```js
+    //* 交替变化
+    CrDom.prototype.change = function (time, state = true) {
+        Astate = Astate == null ? state : Astate;
+        if (Astate) {
+            this.slowin(time)
+            Astate = false;
+        } else {
+            this.slowou(time)
+            Astate = true;
+        }
+        return this;
+    }
+```
+8. 暂停动画 防止动画快速切换时剧烈变化 使用 `stop()`
+```js
+  //停止动画
+    CrDom.prototype.stop = function () {
+        clearInterval(time);
+        clearInterval(times);
+        return this;
+    }
+```
