@@ -31,6 +31,15 @@
         }
     }
 
+    //深拷贝数组
+    function copyArr(arr) {
+        let res = []
+        for (let i = 0; i < arr.length; i++) {
+            res.push(arr[i])
+        }
+        return res
+    }
+
     //====================================================================
     //=========                  添加原型函数                  ============
     //====================================================================
@@ -197,6 +206,58 @@
         clearInterval(time);
         clearInterval(times);
         return this;
+    }
+
+    //TODO 获取父亲节点
+    CrDom.prototype.father = function () {
+        var temp = [];
+        ergodic(this.dom, function (value) {
+            temp.push(value.parentNode);
+        })
+        var num = [];
+        for (let i = 0; i < temp.length; i++) {
+            if (num.indexOf(temp[i]) == -1) {
+                num.push(temp[i]);
+            }
+        }
+        this.dom = copyArr(num);
+        return this;
+    }
+
+    //TODO 获取兄弟节点
+    CrDom.prototype.brother = function () {
+        let sonnode = [];
+        ergodic(this.dom, function (value) {
+            ergodic(value.parentNode.children, function (val) {
+                sonnode.push(val)
+            })
+        })
+        let temp = [];
+        for (let k = 0; k < sonnode.length; k++) {
+            if (this.dom.indexOf(sonnode[k]) == -1) {
+                temp.push(sonnode[k])
+            }
+        }
+        this.dom = copyArr(temp);
+        return this;
+    }
+
+    //TODO 获取子节点
+    CrDom.prototype.son = function () {
+        let temp = [];
+        ergodic(this.dom, function (value) {
+            for (let k of value.children) {
+                temp.push(k)
+            }
+        })
+
+        this.dom = copyArr(temp);
+        return this;
+    }
+
+    //TODO 获取后代节点
+    CrDom.prototype.progeny = function (node) {
+
     }
 
 
