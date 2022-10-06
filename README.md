@@ -20,6 +20,8 @@
 |`father()`|会获取所有元素的父节点|
 |`brother()`|获取所有兄弟节点|
 |`son()`|获取所有元素的子节点|
+|`progeny()`|获取后代节点|
+|`insert()`|修改`dom`属性中的值|
 
 1. $()方法如同jquery的选择器样，传入参数经过处理后获得dom元素，作为属性放在构造函数身上，之后所有的dom操作都是操作这个属性
 ```js
@@ -261,6 +263,33 @@
         })
 
         this.dom = copyArr(temp);
+        return this;
+    }
+```
+12. 获取后代节点 `progeny()` 必须传参数 可以传 标签名 类名 css选择器
+```js
+    //TODO 获取后代节点
+    CrDom.prototype.progeny = function (node) {
+        let temp = [];
+        ergodic(this.dom, function (value) {
+            ergodic(value.querySelectorAll(node), function (val) {
+                temp.push(val);
+            })
+        })
+        this.dom = copyArr(temp);
+        return this;
+    }
+```
+13. `insert()` 方法可以通过传参 修改 `$()` 方法获取的dom节点 `dom` 属性会发生改变，可以传入单个dom节点,有多个dom节点可以通过数组方式传入
+```js
+    //TODO 修改dom属性
+    CrDom.prototype.insert = function (value) {
+        //! 判断不要交换位置
+        if (value instanceof Array) {
+            this.dom = copyArr(value);
+        } else if (value instanceof Object) {
+            this.dom = [value];
+        }
         return this;
     }
 ```
