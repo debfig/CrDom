@@ -257,7 +257,25 @@
 
     //TODO 获取后代节点
     CrDom.prototype.progeny = function (node) {
+        let temp = [];
+        ergodic(this.dom, function (value) {
+            ergodic(value.querySelectorAll(node), function (val) {
+                temp.push(val);
+            })
+        })
+        this.dom = copyArr(temp);
+        return this;
+    }
 
+    //TODO 修改dom属性
+    CrDom.prototype.insert = function (value) {
+        //! 判断不要交换位置
+        if (value instanceof Array) {
+            this.dom = copyArr(value);
+        } else if (value instanceof Object) {
+            this.dom = [value];
+        }
+        return this;
     }
 
 
