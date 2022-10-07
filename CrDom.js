@@ -8,7 +8,15 @@
     //* CrDom 构造函数
     function CrDom(doms = '') {
         this.dom = this.ifthis(doms);
-        this.WinDom = window.document;
+        this.ObjectMethodStatus = {
+            //显示隐藏状态
+            states: false,
+            //淡入淡出状态
+            time: null,
+            times: null,
+            amount: 1,
+            Astate: null
+        }
     }
 
     //====================================================================
@@ -104,30 +112,28 @@
         return this
     }
 
-    //显示与隐藏
-    var states = true;
 
     //TODO 隐藏与显示
     CrDom.prototype.display = function (state) {
         if (state == undefined) {
-            if (states) {
-                ergodic(this.dom, function (i) {
-                    i.style.display = 'none';
-                })
-                states = false;
-            } else {
+            if (this.ObjectMethodStatus.states) {
                 ergodic(this.dom, function (i) {
                     i.style.display = 'block';
                 })
-                states = true;
+                this.ObjectMethodStatus.states = false;
+            } else {
+                ergodic(this.dom, function (i) {
+                    i.style.display = 'none';
+                })
+                this.ObjectMethodStatus.states = true;
             }
         } else if (state) {
             ergodic(this.dom, function (i) {
-                i.style.display = 'none';
+                i.style.display = 'block';
             })
         } else {
             ergodic(this.dom, function (i) {
-                i.style.display = 'block';
+                i.style.display = 'none';
             })
         }
         return this;
@@ -135,30 +141,23 @@
 
     //TODO 淡入淡出
 
-    //动画的状态管理
-    //===========================================
-    /* || 淡入淡出 定时器 */   var time, times;  /* 变化量 */ var amount = 1;
-    //===========================================
-    /* || 淡入淡出交替变化*/   var Astate = null;
-    //===========================================
-
     //* 淡入
     CrDom.prototype.slowin = function (tim) {
         let _this = this;
-        let temp = 100 - (amount * 100);
-        amount = amount != 1 ? amount : 1;
+        let temp = 100 - (this.ObjectMethodStatus.amount * 100);
+        this.ObjectMethodStatus.amount = this.ObjectMethodStatus.amount != 1 ? this.ObjectMethodStatus.amount : 1;
         ergodic(this.dom, function (value) {
-            value.style.opacity = amount;
+            value.style.opacity = _this.ObjectMethodStatus.amount;
         })
-        clearInterval(time);
-        time = setInterval(function () {
+        clearInterval(this.ObjectMethodStatus.time);
+        this.ObjectMethodStatus.time = setInterval(function () {
             if (temp <= 100) {
                 ergodic(_this.dom, function (value) {
-                    value.style.opacity = amount = (100 - temp) / 100;
+                    value.style.opacity = _this.ObjectMethodStatus.amount = (100 - temp) / 100;
                 });
                 temp++;
             } else {
-                clearInterval(time);
+                clearInterval(_this.ObjectMethodStatus.time);
                 ergodic(_this.dom, function (value) {
                     value.style.display = 'none';
                 })
@@ -169,42 +168,42 @@
     //* 淡出
     CrDom.prototype.slowou = function (tim) {
         let _this = this;
-        let temp = amount * 100;
-        amount = amount != 0 ? amount : 0;
-        ergodic(this.dom, function (value) {
+        let temp = this.ObjectMethodStatus.amount * 100;
+        this.ObjectMethodStatus.amount = this.ObjectMethodStatus.amount != 0 ? this.ObjectMethodStatus.amount : 0;
+        ergodic(_this.dom, function (value) {
             value.style.display = 'block';
-            value.style.opacity = amount;
+            value.style.opacity = _this.ObjectMethodStatus.amount;
         })
-        clearInterval(times);
-        times = setInterval(function () {
+        clearInterval(_this.ObjectMethodStatus.times);
+        this.ObjectMethodStatus.times = setInterval(function () {
             if (temp <= 100) {
                 ergodic(_this.dom, function (value) {
-                    value.style.opacity = amount = temp / 100;
+                    value.style.opacity = _this.ObjectMethodStatus.amount = temp / 100;
                 });
                 temp++;
             } else {
-                clearInterval(times);
+                clearInterval(_this.ObjectMethodStatus.times);
             }
         }, (tim * 1000) / 100);
         return this;
     }
     //* 交替变化
     CrDom.prototype.change = function (time, state = true) {
-        Astate = Astate == null ? state : Astate;
-        if (Astate) {
+        this.ObjectMethodStatus.Astate = this.ObjectMethodStatus.Astate == null ? state : this.ObjectMethodStatus.Astate;
+        if (this.ObjectMethodStatus.Astate) {
             this.slowin(time)
-            Astate = false;
+            this.ObjectMethodStatus.Astate = false;
         } else {
             this.slowou(time)
-            Astate = true;
+            this.ObjectMethodStatus.Astate = true;
         }
         return this;
     }
 
     //停止动画
     CrDom.prototype.stop = function () {
-        clearInterval(time);
-        clearInterval(times);
+        clearInterval(this.ObjectMethodStatus.time);
+        clearInterval(this.ObjectMethodStatus.times);
         return this;
     }
 
