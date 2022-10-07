@@ -35,6 +35,15 @@
     //* CrDom 构造函数
     function CrDom(doms = '') {
         this.dom = this.ifthis(doms);
+        this.ObjectMethodStatus = {
+            //显示隐藏状态
+            states: false,
+            //淡入淡出状态
+            time: null,
+            times: null,
+            amount: 1,
+            Astate: null
+        }
     }
 
     //========================================================================================
@@ -129,6 +138,33 @@
 ```
 6. 元素的隐藏与显示    在点击事件中 请使用 `let node = $('.tu')` 使用变量来接收到实例,不要直接使用 `$('.tu').display()`因为这样每次调用都会生成一个新对象 
 ```js
+//TODO 隐藏与显示
+    CrDom.prototype.display = function (state) {
+        if (state == undefined) {
+            if (this.ObjectMethodStatus.states) {
+                ergodic(this.dom, function (i) {
+                    i.style.display = 'block';
+                })
+                this.ObjectMethodStatus.states = false;
+            } else {
+                ergodic(this.dom, function (i) {
+                    i.style.display = 'none';
+                })
+                this.ObjectMethodStatus.states = true;
+            }
+        } else if (state) {
+            ergodic(this.dom, function (i) {
+                i.style.display = 'block';
+            })
+        } else {
+            ergodic(this.dom, function (i) {
+                i.style.display = 'none';
+            })
+        }
+        return this;
+    }
+```
+```js
 //直接使用 display() 会隐藏显示交替，传入 false 隐藏 传入 true 显示 
     let node = $('.tu')
     $('span').eq(0).on('click', function () {
@@ -141,20 +177,20 @@
     //* 淡入
     CrDom.prototype.slowin = function (tim) {
         let _this = this;
-        let temp = 100 - (amount * 100);
-        amount = amount != 1 ? amount : 1;
+        let temp = 100 - (this.ObjectMethodStatus.amount * 100);
+        this.ObjectMethodStatus.amount = this.ObjectMethodStatus.amount != 1 ? this.ObjectMethodStatus.amount : 1;
         ergodic(this.dom, function (value) {
-            value.style.opacity = amount;
+            value.style.opacity = _this.ObjectMethodStatus.amount;
         })
-        clearInterval(time);
-        time = setInterval(function () {
+        clearInterval(this.ObjectMethodStatus.time);
+        this.ObjectMethodStatus.time = setInterval(function () {
             if (temp <= 100) {
                 ergodic(_this.dom, function (value) {
-                    value.style.opacity = amount = (100 - temp) / 100;
+                    value.style.opacity = _this.ObjectMethodStatus.amount = (100 - temp) / 100;
                 });
                 temp++;
             } else {
-                clearInterval(time);
+                clearInterval(_this.ObjectMethodStatus.time);
                 ergodic(_this.dom, function (value) {
                     value.style.display = 'none';
                 })
@@ -168,21 +204,21 @@
     //* 淡出
     CrDom.prototype.slowou = function (tim) {
         let _this = this;
-        let temp = amount * 100;
-        amount = amount != 0 ? amount : 0;
-        ergodic(this.dom, function (value) {
+        let temp = this.ObjectMethodStatus.amount * 100;
+        this.ObjectMethodStatus.amount = this.ObjectMethodStatus.amount != 0 ? this.ObjectMethodStatus.amount : 0;
+        ergodic(_this.dom, function (value) {
             value.style.display = 'block';
-            value.style.opacity = amount;
+            value.style.opacity = _this.ObjectMethodStatus.amount;
         })
-        clearInterval(times);
-        times = setInterval(function () {
+        clearInterval(_this.ObjectMethodStatus.times);
+        this.ObjectMethodStatus.times = setInterval(function () {
             if (temp <= 100) {
                 ergodic(_this.dom, function (value) {
-                    value.style.opacity = amount = temp / 100;
+                    value.style.opacity = _this.ObjectMethodStatus.amount = temp / 100;
                 });
                 temp++;
             } else {
-                clearInterval(times);
+                clearInterval(_this.ObjectMethodStatus.times);
             }
         }, (tim * 1000) / 100);
         return this;
@@ -193,23 +229,23 @@
 ```js
     //* 交替变化
     CrDom.prototype.change = function (time, state = true) {
-        Astate = Astate == null ? state : Astate;
-        if (Astate) {
+        this.ObjectMethodStatus.Astate = this.ObjectMethodStatus.Astate == null ? state : this.ObjectMethodStatus.Astate;
+        if (this.ObjectMethodStatus.Astate) {
             this.slowin(time)
-            Astate = false;
+            this.ObjectMethodStatus.Astate = false;
         } else {
             this.slowou(time)
-            Astate = true;
+            this.ObjectMethodStatus.Astate = true;
         }
         return this;
     }
 ```
 8. 暂停动画 防止动画快速切换时剧烈变化 使用 `stop()`
 ```js
-  //停止动画
+    //停止动画
     CrDom.prototype.stop = function () {
-        clearInterval(time);
-        clearInterval(times);
+        clearInterval(this.ObjectMethodStatus.time);
+        clearInterval(this.ObjectMethodStatus.times);
         return this;
     }
 ```
