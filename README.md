@@ -109,11 +109,21 @@
 5. 添加文本 添加类名 修改类名
 ```js
     //TODO dom中添加文本
-    CrDom.prototype.setText = function (txt) {
-        for (let i of this.dom) {
-            i.innerText = txt;
+     CrDom.prototype.addText = function (txt) {
+        let temp = [];
+        if (txt == undefined) {
+            ergodic(this.dom, function (i) {
+                temp.push(i.innerText);
+            });
+            this.txt = copyArr(temp);
+        } else {
+            ergodic(this.dom, function (i) {
+                temp.push(i.innerText = txt);
+            });
+            this.txt = copyArr(temp);
         }
-        return this
+
+        return this;
     }
 
     //TODO 修改类名
