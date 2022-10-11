@@ -7,6 +7,7 @@
 
     //* CrDom 构造函数
     function CrDom(doms = '') {
+        this.CrDom = "1.1.2";
         this.dom = this.ifthis(doms);
         this.ObjectMethodStatus = {
             //显示隐藏状态
@@ -16,7 +17,9 @@
             times: null,
             amount: 1,
             Astate: null
-        }
+        };
+        //文本
+        this.txt = [null];
     }
 
     //====================================================================
@@ -86,10 +89,20 @@
 
     //TODO dom中添加文本
     CrDom.prototype.addText = function (txt) {
-        ergodic(this.dom, function (i) {
-            i.innerText = txt;
-        })
-        return this
+        let temp = [];
+        if (txt == undefined) {
+            ergodic(this.dom, function (i) {
+                temp.push(i.innerText);
+            });
+            this.txt = copyArr(temp);
+        } else {
+            ergodic(this.dom, function (i) {
+                temp.push(i.innerText = txt);
+            });
+            this.txt = copyArr(temp);
+        }
+
+        return this;
     }
 
     //TODO 修改类名
@@ -165,6 +178,7 @@
         }, (tim * 1000) / 100);
         return this;
     }
+
     //* 淡出
     CrDom.prototype.slowou = function (tim) {
         let _this = this;
@@ -187,6 +201,7 @@
         }, (tim * 1000) / 100);
         return this;
     }
+
     //* 交替变化
     CrDom.prototype.change = function (time, state = true) {
         this.ObjectMethodStatus.Astate = this.ObjectMethodStatus.Astate == null ? state : this.ObjectMethodStatus.Astate;
@@ -200,7 +215,7 @@
         return this;
     }
 
-    //停止动画
+    //! 停止动画
     CrDom.prototype.stop = function () {
         clearInterval(this.ObjectMethodStatus.time);
         clearInterval(this.ObjectMethodStatus.times);
