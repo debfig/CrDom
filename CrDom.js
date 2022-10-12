@@ -3,11 +3,11 @@
     function $(dom) {
         // 调用 $ 函数会返回一个 CrDom 实例
         return new CrDom(dom);
-    }
+    };
 
     //* CrDom 构造函数
     function CrDom(doms = '') {
-        this.CrDom = "1.1.2";
+        this.CrDom = "1.1.3";
         this.dom = this.ifthis(doms);
         this.ObjectMethodStatus = {
             //显示隐藏状态
@@ -20,7 +20,7 @@
         };
         //文本
         this.txt = [null];
-    }
+    };
 
     //====================================================================
 
@@ -31,7 +31,7 @@
         } else if (typeof dom === 'string') {
             return [...document.querySelectorAll(dom)];
         }
-    }
+    };
     //====================================================================
 
 
@@ -40,16 +40,16 @@
         for (let i of value) {
             fun(i)
         }
-    }
+    };
 
     //深拷贝数组
     function copyArr(arr) {
-        let res = []
+        let res = [];
         for (let i = 0; i < arr.length; i++) {
             res.push(arr[i])
-        }
+        };
         return res
-    }
+    };
 
     //====================================================================
     //=========                  添加原型函数                  ============
@@ -59,9 +59,9 @@
     CrDom.prototype.eq = function (value) {
         this.dom = this.dom.filter((item, index, self) => {
             return typeof value === 'number' ? index == value : self;
-        })
+        });
         return this;
-    }
+    };
 
     //TODO 修改样式
     CrDom.prototype.css = function (style, value) {
@@ -75,17 +75,17 @@
             ergodic(this.dom, function (k) {
                 k.style[style] = value;
             })
-        }
+        };
         return this;
-    }
+    };
 
     //TODO 绑定事件
     CrDom.prototype.on = function (event, Callback) {
         ergodic(this.dom, function (i) {
             i.addEventListener(event, Callback);
-        })
+        });
         return this;
-    }
+    };
 
     //TODO dom中添加文本
     CrDom.prototype.addText = function (txt) {
@@ -100,10 +100,10 @@
                 temp.push(i.innerText = txt);
             });
             this.txt = copyArr(temp);
-        }
+        };
 
         return this;
-    }
+    };
 
     //TODO 修改类名
     CrDom.prototype.setClass = function (clas) {
@@ -111,9 +111,9 @@
             ergodic(this.dom, function (i) {
                 i.className = clas
             })
-        }
+        };
         return this
-    }
+    };
 
     //TODO 添加类名
     CrDom.prototype.addClass = function (clas) {
@@ -121,9 +121,9 @@
             ergodic(this.dom, function (i) {
                 i.classList.add(clas)
             })
-        }
+        };
         return this
-    }
+    };
 
     //TODO 删除类名
     CrDom.prototype.clearClass = function (clas) {
@@ -131,9 +131,9 @@
             ergodic(this.dom, function (i) {
                 i.classList.remove(clas)
             })
-        }
+        };
         return this;
-    }
+    };
 
 
     //TODO 隐藏与显示
@@ -142,12 +142,12 @@
             if (this.ObjectMethodStatus.states) {
                 ergodic(this.dom, function (i) {
                     i.style.display = 'block';
-                })
+                });
                 this.ObjectMethodStatus.states = false;
             } else {
                 ergodic(this.dom, function (i) {
                     i.style.display = 'none';
-                })
+                });
                 this.ObjectMethodStatus.states = true;
             }
         } else if (state) {
@@ -158,9 +158,9 @@
             ergodic(this.dom, function (i) {
                 i.style.display = 'none';
             })
-        }
+        };
         return this;
-    }
+    };
 
     //TODO 淡入淡出
 
@@ -171,7 +171,7 @@
         this.ObjectMethodStatus.amount = this.ObjectMethodStatus.amount != 1 ? this.ObjectMethodStatus.amount : 1;
         ergodic(this.dom, function (value) {
             value.style.opacity = _this.ObjectMethodStatus.amount;
-        })
+        });
         clearInterval(this.ObjectMethodStatus.time);
         this.ObjectMethodStatus.time = setInterval(function () {
             if (temp <= 100) {
@@ -187,17 +187,18 @@
             }
         }, (tim * 1000) / 100);
         return this;
-    }
+    };
 
     //* 淡出
-    CrDom.prototype.slowou = function (tim) {
+    CrDom.prototype.slowou = function (tim, val) {
+        if (val != undefined) this.ObjectMethodStatus.amount = val;
         let _this = this;
         let temp = this.ObjectMethodStatus.amount * 100;
         this.ObjectMethodStatus.amount = this.ObjectMethodStatus.amount != 0 ? this.ObjectMethodStatus.amount : 0;
         ergodic(_this.dom, function (value) {
             value.style.display = 'block';
             value.style.opacity = _this.ObjectMethodStatus.amount;
-        })
+        });
         clearInterval(_this.ObjectMethodStatus.times);
         this.ObjectMethodStatus.times = setInterval(function () {
             if (temp <= 100) {
@@ -210,43 +211,43 @@
             }
         }, (tim * 1000) / 100);
         return this;
-    }
+    };
 
     //* 交替变化
     CrDom.prototype.change = function (time, state = true) {
         this.ObjectMethodStatus.Astate = this.ObjectMethodStatus.Astate == null ? state : this.ObjectMethodStatus.Astate;
         if (this.ObjectMethodStatus.Astate) {
-            this.slowin(time)
+            this.slowin(time);
             this.ObjectMethodStatus.Astate = false;
         } else {
-            this.slowou(time)
+            this.slowou(time);
             this.ObjectMethodStatus.Astate = true;
-        }
+        };
         return this;
-    }
+    };
 
     //! 停止动画
     CrDom.prototype.stop = function () {
         clearInterval(this.ObjectMethodStatus.time);
         clearInterval(this.ObjectMethodStatus.times);
         return this;
-    }
+    };
 
     //TODO 获取父亲节点
     CrDom.prototype.father = function () {
         var temp = [];
         ergodic(this.dom, function (value) {
             temp.push(value.parentNode);
-        })
+        });
         var num = [];
         for (let i = 0; i < temp.length; i++) {
             if (num.indexOf(temp[i]) == -1) {
                 num.push(temp[i]);
             }
-        }
+        };
         this.dom = copyArr(num);
         return this;
-    }
+    };
 
     //TODO 获取兄弟节点
     CrDom.prototype.brother = function () {
@@ -255,16 +256,16 @@
             ergodic(value.parentNode.children, function (val) {
                 sonnode.push(val)
             })
-        })
+        });
         let temp = [];
         for (let k = 0; k < sonnode.length; k++) {
             if (this.dom.indexOf(sonnode[k]) == -1) {
                 temp.push(sonnode[k])
             }
-        }
+        };
         this.dom = copyArr(temp);
         return this;
-    }
+    };
 
     //TODO 获取子节点
     CrDom.prototype.son = function () {
@@ -273,11 +274,11 @@
             for (let k of value.children) {
                 temp.push(k)
             }
-        })
+        });
 
         this.dom = copyArr(temp);
         return this;
-    }
+    };
 
     //TODO 获取后代节点
     CrDom.prototype.progeny = function (node) {
@@ -286,10 +287,10 @@
             ergodic(value.querySelectorAll(node), function (val) {
                 temp.push(val);
             })
-        })
+        });
         this.dom = copyArr(temp);
         return this;
-    }
+    };
 
     //TODO 修改dom属性
     CrDom.prototype.insert = function (value) {
@@ -298,9 +299,9 @@
             this.dom = copyArr(value);
         } else if (value instanceof Object) {
             this.dom = [value];
-        }
+        };
         return this;
-    }
+    };
 
 
     //* 在 window 上添加 构造函数
