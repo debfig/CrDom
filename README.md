@@ -12,6 +12,7 @@
 | `setText()`| 用来在dom中添加文本|
 |`setClass()` | 重新设置元素类名|
 |`addClass()` |向类名中添加新类名 |
+|`clearClass()`| 删除指定类名|
 |`display()` | 元素的显示与隐藏|
 | `slowin()`|元素淡入 |
 | `slowou()`| 元素淡出|   
@@ -144,6 +145,16 @@
             }
         }
         return this
+    }
+
+    //TODO 删除类名
+    CrDom.prototype.clearClass = function (clas) {
+        if (typeof clas === 'string') {
+            ergodic(this.dom, function (i) {
+                i.classList.remove(clas)
+            })
+        }
+        return this;
     }
 ```
 6. 元素的隐藏与显示    在点击事件中 请使用 `let node = $('.tu')` 使用变量来接收到实例,不要直接使用 `$('.tu').display()`因为这样每次调用都会生成一个新对象 
