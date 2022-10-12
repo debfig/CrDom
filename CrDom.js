@@ -125,6 +125,16 @@
         return this
     }
 
+    //TODO 删除类名
+    CrDom.prototype.clearClass = function (clas) {
+        if (typeof clas === 'string') {
+            ergodic(this.dom, function (i) {
+                i.classList.remove(clas)
+            })
+        }
+        return this;
+    }
+
 
     //TODO 隐藏与显示
     CrDom.prototype.display = function (state) {
