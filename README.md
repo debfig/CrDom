@@ -113,7 +113,7 @@ $('span').eq(1).clearClass('blo');
         node.display()
     })
 ```
-![image](./video/QQ%E5%BD%95%E5%B1%8F20221012203346.gif)<br>
+![image](./gif/QQ%E5%BD%95%E5%B1%8F20221012203346.gif)<br>
 ## 7. 淡入淡出
 + 7.1  淡入 使用 `slowin()` 传入一个时间参数 单位 S 
 ```html
@@ -128,7 +128,7 @@ let node = $('span').eq(1);
         node.slowin(1);
     })
 ```
-![image](./video/20221012200936.gif)<br>
+![image](./gif/20221012200936.gif)<br>
 + 7.2 淡出 使用 `slowou()` 传入一个时间参数 单位 S ,单独使用还要传入一个参数 0 (就是只有淡出,没有淡入在它前面)
 ```html
     <div class="a">
@@ -142,7 +142,7 @@ let node = $('span').eq(1);
         node.slowou(1, 0);
     })
 ```
-![image](./video/QQ%E5%BD%95%E5%B1%8F20221012205017_1.gif)<br>
+![image](./gif/QQ%E5%BD%95%E5%B1%8F20221012205017_1.gif)<br>
 + 7.3 淡入淡出交替 它是通过分别调用对象内的 淡入淡出 方法实现的 <br>
    使用 `change()` 传入两个参数 第一个是变化时间 单位 S ，第二个是改变第一次调用时是淡入还是淡出 默认参数是 `true` 淡入 
 ```html
@@ -157,7 +157,7 @@ let node = $('span').eq(1);
         node.change(1);
     })
 ```
-![image](./video/QQ%E5%BD%95%E5%B1%8F20221012205506.gif)<br>
+![image](./gif/QQ%E5%BD%95%E5%B1%8F20221012205506.gif)<br>
 ## 8. 暂停动画 防止动画快速切换时剧烈变化 使用 `stop()`
 ```html
     <div class="a">
