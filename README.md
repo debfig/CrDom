@@ -37,7 +37,7 @@
  console.log($('.a'));
  console.log($(this));
 ```
-![image](https://github.com/debfig/CrDom/blob/master/img/QQ%E6%88%AA%E5%9B%BE20221012192830.png)<br>
+![image](./img/QQ%E6%88%AA%E5%9B%BE20221012192830.png)<br>
 ## 2. 在CrDom.js中可以同时获得多个dom元素，形成数组放在构造函数上，可用通过 eq()方法来选择要操作的dom;
 ```html
     <div class="a">
