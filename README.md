@@ -25,7 +25,7 @@
 |`son()`|获取所有元素的子节点|
 |`progeny()`|获取后代节点|
 |`insert()`|修改`dom`属性中的值|
-|`DataBroker`| 数据响应式|
+|`DataBroker()`| 数据响应式|
 
 ## 1. `$()` 方法如同jquery的选择器样，传入参数经过处理后获得dom元素，作为属性放在构造函数身上，之后所有的dom操作都是操作这个属性 
 ```html
@@ -272,4 +272,4 @@ console.log($('div').son());
 
     $.CreateTable($('tbody'), data);
 ```
-![image](./img/QQ%E6%88%AA%E5%9B%BE20221014190135.png)<br>
+![image](./img/QQ%E6%88%AA%E5%9B%BE20221014190135.png)<br> 
