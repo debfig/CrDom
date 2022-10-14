@@ -249,3 +249,27 @@ console.log($('div').son());
     }, 500);
 ```
 ![image](./gif/QQ%E5%BD%95%E5%B1%8F20221013212955.gif)<br>
+## 15. `CreateTable()` 渲染表格，传两个参数 第一个通过 `$()` 选这表格在那个位置 第二个传入数据 以数组对象的形式,方法只会渲染 \<tr> \<td> 元素
+```html
+    <table>
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>城市ID</td>
+                <td>城市</td>
+                <td>father</td>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+```
+```js
+    let data = [
+        { id: 5, cityID: '130100', city: '石家庄市', father: '130000' },
+        { id: 6, cityID: '130200', city: '唐山市', father: '130000' },
+        { id: 7, cityID: '130300', city: '秦皇岛市', father: '130000' }
+    ];
+
+    $.CreateTable($('tbody'), data);
+```
+![image](./img/QQ%E6%88%AA%E5%9B%BE20221014190135.png)<br>
