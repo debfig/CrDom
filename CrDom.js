@@ -315,12 +315,28 @@
                     return value[i];
                 },
                 set(val) {
+                    console.log(val);
                     value[i] = val;
                     fun();
                 }
             });
-        }
+        };
         fun();
+    };
+
+    //TODO 渲染表格
+    $.CreateTable = function (dom, data) {
+        for (let i = 0; i < data.length; i++) {
+            let tr = document.createElement('tr');
+            for (let j in data[i]) {
+                let td = document.createElement('td');
+                td.innerHTML = data[i][j];
+                tr.appendChild(td);
+            };
+            for (let k of dom.dom) {
+                k.appendChild(tr);
+            };
+        }
     };
 
 
