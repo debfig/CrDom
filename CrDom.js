@@ -7,7 +7,7 @@
 
     //* CrDom 构造函数
     function CrDom(doms = '') {
-        this.CrDom = "1.1.3";
+        this.CrDom = "1.1.4";
         this.dom = this.ifthis(doms);
         this.ObjectMethodStatus = {
             //显示隐藏状态
@@ -310,15 +310,21 @@
     //TODO 数据响应式
     $.DataBroker = function (object, value, fun) {
         for (let i in value) {
-            Object.defineProperty(object, i, {
-                get() {
-                    return value[i];
-                },
-                set(val) {
-                    value[i] = val;
-                    fun();
-                }
-            });
+            if (typeof value[i] == 'object') {
+                let obj = new Object();
+                object[i] = obj;
+                $.DataBroker(object[i], value[i], fun);
+            } else {
+                Object.defineProperty(object, i, {
+                    get() {
+                        return value[i];
+                    },
+                    set(val) {
+                        value[i] = val;
+                        fun();
+                    }
+                });
+            };
         };
         fun();
     };
@@ -339,7 +345,7 @@
                     td.innerHTML = data[i][j];
                     tr.appendChild(td);
                 };
-            }
+            };
             for (let k of dom.dom) {
                 k.appendChild(tr);
             };
