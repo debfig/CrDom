@@ -250,7 +250,7 @@ console.log($('div').son());
     }, 500);
 ```
 ![image](./gif/QQ%E5%BD%95%E5%B1%8F20221013212955.gif)<br>
-## 15. `CreateTable()` 渲染表格，传两个参数 第一个通过 `$()` 选这表格在那个位置 第二个传入数据 以数组对象的形式,方法只会渲染 \<tr> \<td> 元素
+## 15. `CreateTable()` 渲染表格，传三个参数 第一个通过 `$()` 选这表格在那个位置 第二个传入数据 以数组对象的形式 第三个是数组参数用来选择需要渲染的参数或修改顺序,&nbsp; 这个方法只会渲染 \<tr> \<td> 元素
 ```html
     <table>
         <thead>
@@ -272,5 +272,9 @@ console.log($('div').son());
     ];
 
     $.CreateTable($('tbody'), data);
+```
+```js
+//添加数组参数选择 需要渲染的参数或顺序
+    $.CreateTable($('tbody'), data,['id','cityID','city','father'])
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221014190135.png)<br> 
