@@ -315,7 +315,6 @@
                     return value[i];
                 },
                 set(val) {
-                    console.log(val);
                     value[i] = val;
                     fun();
                 }
@@ -325,14 +324,22 @@
     };
 
     //TODO 渲染表格
-    $.CreateTable = function (dom, data) {
+    $.CreateTable = function (dom, data, sort) {
         for (let i = 0; i < data.length; i++) {
             let tr = document.createElement('tr');
-            for (let j in data[i]) {
-                let td = document.createElement('td');
-                td.innerHTML = data[i][j];
-                tr.appendChild(td);
-            };
+            if (sort instanceof Array) {
+                for (let t = 0; t < sort.length; t++) {
+                    let td = document.createElement('td');
+                    td.innerHTML = data[i][sort[t]];
+                    tr.appendChild(td);
+                };
+            } else {
+                for (let j in data[i]) {
+                    let td = document.createElement('td');
+                    td.innerHTML = data[i][j];
+                    tr.appendChild(td);
+                };
+            }
             for (let k of dom.dom) {
                 k.appendChild(tr);
             };
