@@ -234,6 +234,14 @@ console.log($('div').son());
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221012211833.png)<br>
 ## 14. `DataBroker()`数据响应式,该方法关注的是数据的改变,当数据改变时会调用一个函数在函数中更新页面
+## 对数组进行操作只能使用以下 API 操作 
+`push()`
+`pop()`
+`shift()`
+`unshift()`
+`splice()`
+`sort()`
+`reverse()`
 ```js
 //方法中有三个参数
 //第一个是一个空对象之后的数据会放在这个对象中
@@ -241,7 +249,7 @@ console.log($('div').son());
 //第三个参数是回调函数在这个函数中更新数据
     let _data = {}, node = $('em');
 
-    $.DataBroker(_data, { txt: 10 }, () => {
+    $.DataBroker(_data, { txt: 10 ,data:['1','2']}, () => {
         node.addText(_data.txt);
     })
 
