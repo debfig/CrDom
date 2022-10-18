@@ -309,8 +309,26 @@
 
     //TODO 数据响应式
     $.DataBroker = function (object, value, fun) {
+        function ArrayBroker(arr, fun) {
+            let newPrototype = Object.create(Array.prototype);
+            let methods = ["push", "pop", "shift", "unshift", "reverse", "sort", "splice"];
+            methods.forEach(method => {
+                newPrototype[method] = function (...args) {
+                    //! 关键部分 我们使用延时定时器将函数调用由同步变为异步操作
+                    //! 这步是为了让对数组的的操作先执行，在执行函数的调用
+                    setTimeout(function () {
+                        fun();
+                    }, 0);
+                    return Array.prototype[method].call(this, ...args);
+                };
+            });
+            arr.__proto__ = newPrototype;
+        };
         for (let i in value) {
-            if (typeof value[i] == 'object') {
+            if (value[i] instanceof Array) {
+                object[i] = value[i];
+                ArrayBroker(value[i], fun);
+            } else if (value[i] instanceof Object) {
                 let obj = new Object();
                 object[i] = obj;
                 $.DataBroker(object[i], value[i], fun);
