@@ -329,7 +329,7 @@
                     ArrayBroker(arr[i], fun);
                 } else if (arr[i] instanceof Object) {
                     let temp = arr[i];
-                    arr[i] = new Array();
+                    arr[i] = new Object();
                     $.DataBroker(arr[i], temp, fun);
                 }
             }
@@ -345,6 +345,7 @@
                 $.DataBroker(object[i], value[i], fun);
             } else {
                 Object.defineProperty(object, i, {
+                    enumerable: true,
                     get() {
                         return value[i];
                     },
