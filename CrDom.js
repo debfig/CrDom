@@ -360,7 +360,6 @@
 
     //TODO 渲染表格
     $.CreateTable = function (dom, data, sort) {
-        console.log(data);
         for (let i = 0; i < data.length; i++) {
             let tr = document.createElement('tr');
             if (sort instanceof Array) {
