@@ -323,11 +323,22 @@
                 };
             });
             arr.__proto__ = newPrototype;
+            //判断数组中是否有对象和数组如果有进行get set和数组监听
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] instanceof Array) {
+                    ArrayBroker(arr[i], fun);
+                } else if (arr[i] instanceof Object) {
+                    let temp = arr[i];
+                    arr[i] = new Array();
+                    $.DataBroker(arr[i], temp, fun);
+                }
+            }
         };
         for (let i in value) {
             if (value[i] instanceof Array) {
-                object[i] = value[i];
-                ArrayBroker(value[i], fun);
+                //!         防止对原数组的更改
+                object[i] = [...value[i]];
+                ArrayBroker(object[i], fun);
             } else if (value[i] instanceof Object) {
                 let obj = new Object();
                 object[i] = obj;
@@ -349,6 +360,7 @@
 
     //TODO 渲染表格
     $.CreateTable = function (dom, data, sort) {
+        console.log(data);
         for (let i = 0; i < data.length; i++) {
             let tr = document.createElement('tr');
             if (sort instanceof Array) {
