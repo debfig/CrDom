@@ -243,15 +243,16 @@ console.log($('div').son());
 `sort()`
 `reverse()`
 ```js
-//方法中有三个参数
+//方法中有四个参数
 //第一个是一个空对象之后的数据会放在这个对象中
 //第二个参数是数据对象，其中的数据最后会放在，第一个参数中，
 //第三个参数是回调函数在这个函数中更新数据
+//第四个参数设置使用方法时是否执行回调函数,默认是 false
     let _data = {}, node = $('em');
 
     $.DataBroker(_data, { txt: 10 ,data:['1','2']}, () => {
         node.addText(_data.txt);
-    })
+    },true)
 
     setInterval(function () {
         _data.txt++;
