@@ -308,7 +308,7 @@
     //====================================================================
 
     //TODO 数据响应式
-    $.DataBroker = function (object, value, fun) {
+    $.DataBroker = function (object, value, fun, state = false) {
         function ArrayBroker(arr, fun) {
             let newPrototype = Object.create(Array.prototype);
             let methods = ["push", "pop", "shift", "unshift", "reverse", "sort", "splice"];
@@ -356,7 +356,7 @@
                 });
             };
         };
-        fun();
+        if (state) { fun(); };
     };
 
     //TODO 渲染表格
