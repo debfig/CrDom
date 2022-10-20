@@ -361,6 +361,7 @@
 
     //TODO 渲染表格
     $.CreateTable = function (dom, data, sort) {
+        for (let d of dom.dom) { d.innerHTML = ""; };
         for (let i = 0; i < data.length; i++) {
             let tr = document.createElement('tr');
             if (sort instanceof Array) {
