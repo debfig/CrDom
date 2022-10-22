@@ -1,3 +1,10 @@
+/* 
+CrDom.js JavaScript Library V1.1.5
+作者: 灿烈
+根据MIT许可证发布
+时间：2022/10/21
+URL:https://github.com/debfig/CrDom
+ */
 (function (window, undefined) {
     //定义$方法,返回一个对象
     function $(dom) {
