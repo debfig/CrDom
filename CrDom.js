@@ -26,7 +26,9 @@ URL:https://github.com/debfig/CrDom
             Astate: null
         };
         //文本
-        this.txt = [null];
+        this.txt = [];
+        //属性
+        this.nature = [];
     };
 
     //====================================================================
@@ -37,6 +39,8 @@ URL:https://github.com/debfig/CrDom
             return [dom];
         } else if (typeof dom === 'string') {
             return [...document.querySelectorAll(dom)];
+        } else {
+            console.error('"$()" 传入参数错误！！！');
         }
     };
     //====================================================================
@@ -82,6 +86,8 @@ URL:https://github.com/debfig/CrDom
             ergodic(this.dom, function (k) {
                 k.style[style] = value;
             })
+        } else {
+            console.error('"css()" 传入参数错误！！！');
         };
         return this;
     };
@@ -102,11 +108,13 @@ URL:https://github.com/debfig/CrDom
                 temp.push(i.innerText);
             });
             this.txt = copyArr(temp);
-        } else {
+        } else if (typeof txt == 'string') {
             ergodic(this.dom, function (i) {
                 temp.push(i.innerText = txt);
             });
             this.txt = copyArr(temp);
+        } else {
+            console.error('"addText()" 传入数据类型错误！！！');
         };
 
         return this;
@@ -118,6 +126,8 @@ URL:https://github.com/debfig/CrDom
             ergodic(this.dom, function (i) {
                 i.className = clas
             })
+        } else {
+            console.error('"setClass()" 传入参数错误！！！');
         };
         return this
     };
@@ -128,6 +138,8 @@ URL:https://github.com/debfig/CrDom
             ergodic(this.dom, function (i) {
                 i.classList.add(clas)
             })
+        } else {
+            console.error('"addClass()" 传入参数错误！！！');
         };
         return this
     };
@@ -138,6 +150,8 @@ URL:https://github.com/debfig/CrDom
             ergodic(this.dom, function (i) {
                 i.classList.remove(clas)
             })
+        } else {
+            console.error('"clearClass()" 传入参数错误！！！');
         };
         return this;
     };
@@ -310,11 +324,38 @@ URL:https://github.com/debfig/CrDom
         return this;
     };
 
+    //TODO 获取属性和修改属性
+    CrDom.prototype.Attr = function (attr, value) {
+        let temp = [];
+        if (typeof attr != 'string') { console.error('"Attr()" 传入参数一错误,应该是 string 类型 ！！！'); return this };
+        if (value == undefined) {
+            ergodic(this.dom, function (i) {
+                temp.push(i.attr ? i.attr : i.getAttribute(attr));
+            });
+        } else if (typeof value == 'string') {
+            ergodic(this.dom, function (i) {
+                i.setAttribute(attr, value)
+                temp.push(i.getAttribute(attr));
+            })
+        } else if (value instanceof Array) {
+            for (let i = 0; i < this.dom.length; i++) {
+                this.dom[i].setAttribute(attr, value[i]);
+                temp.push(this.dom[i].getAttribute(attr));
+            }
+        } else {
+            console.error('"Attr()" 传入参数二错误,应该是 string 类型 ！！！');
+        };
+
+        this.nature = copyArr(temp);
+        return this;
+    };
+
+
     //====================================================================
     //=========                  添加函数方法                  ============
     //====================================================================
 
-    //TODO 数据响应式
+    //TODO 数据监听
     $.DataBroker = function (object, value, fun, state = false) {
         function ArrayBroker(arr, fun) {
             let newPrototype = Object.create(Array.prototype);
@@ -334,7 +375,7 @@ URL:https://github.com/debfig/CrDom
             for (let i = 0; i < arr.length; i++) {
                 if (arr[i] instanceof Array) {
                     ArrayBroker(arr[i], fun);
-                } else if (arr[i] instanceof Object) {
+                } else if ((arr[i] instanceof Object) && (typeof arr[i] == 'object')) {
                     let temp = arr[i];
                     arr[i] = new Object();
                     $.DataBroker(arr[i], temp, fun);
@@ -346,7 +387,7 @@ URL:https://github.com/debfig/CrDom
                 //!         防止对原数组的更改
                 object[i] = [...value[i]];
                 ArrayBroker(object[i], fun);
-            } else if (value[i] instanceof Object) {
+            } else if ((value[i] instanceof Object) && (typeof value[i] == 'object')) {
                 let obj = new Object();
                 object[i] = obj;
                 $.DataBroker(object[i], value[i], fun);
