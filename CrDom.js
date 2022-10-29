@@ -353,7 +353,7 @@ URL:https://github.com/debfig/CrDom
             });
         } else if (typeof value == 'string') {
             ergodic(this.dom, function (i) {
-                i.setAttribute(attr, value)
+                i.setAttribute(attr, value);
                 temp.push(i.getAttribute(attr));
             })
         } else if (value instanceof Array) {
