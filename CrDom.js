@@ -156,6 +156,25 @@ URL:https://github.com/debfig/CrDom
         return this;
     };
 
+    //TODO  DOM 节点中添加 html 元素
+    CrDom.prototype.addHTML = function (domtxt, txt) {
+        var reg = /^<.*>$/;
+        if (typeof domtxt != 'string') {
+            console.error('需要字符类型参数！！！');
+        } else if (reg.test(domtxt)) {
+            ergodic(this.dom, function (i) {
+                i.innerHTML = domtxt;
+            });
+        } else {
+            ergodic(this.dom, function (i) {
+                let dom = document.createElement(domtxt);
+                dom.innerText = txt;
+                i.appendChild(dom);
+            });
+        };
+
+        return this;
+    };
 
     //TODO 隐藏与显示
     CrDom.prototype.display = function (state) {
