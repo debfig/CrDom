@@ -3,33 +3,34 @@
 
 | 方法与属性   | 作用 |  
 | :-------------: | :---------- | 
-| `$()` | 获取dom元素，并返回CrDOM对象，后面所有的操作都要基于这个方法实现    | 
+|<a href="#1">`$()`</a> | 获取dom元素，并返回CrDOM对象，后面所有的操作都要基于这个方法实现    | 
 |`CrDom`|版本信息|
-|  `dom`| 这个属性上存放了 `$()`方法获得的dom节点使用数组存放 |
+|`dom`| 这个属性上存放了 `$()`方法获得的dom节点使用数组存放 |
 |`ObjectMethodStatus`| 该属性上存放了淡入淡出的一些配置|
 |`txt`|属性中放了`addText()`方法添加的文本|
-|`eq()` | 该方法用来选择通过`$()`获取的dom节点的具体值| 
-| `css()` | 用来修改元素样式| 
-| `on()`| 用来绑定事件|
-| `addText()`| 用来在dom中添加文本|
-|`setClass()` | 重新设置元素类名|
-|`addClass()` |向类名中添加新类名 |
-|`clearClass()`| 删除指定类名|
-|`display()` | 元素的显示与隐藏|
-| `slowin()`|元素淡入 |
-| `slowou()`| 元素淡出|   
-| `change()`|淡入淡出交替 |    
-| `stop()`| 暂停变换(淡入淡出) |  
-|`father()`|会获取所有元素的父节点|
-|`brother()`|获取所有兄弟节点|
-|`son()`|获取所有元素的子节点|
-|`progeny()`|获取后代节点|
-|`insert()`|修改`dom`属性中的值|
-|`Attr()`|获得,设置和添加元素属性|
-|`DataBroker()`| 数据响应式|
-|`CreateTable()`|渲染表格|
+|<a href="#2">`eq()`</a>| 该方法用来选择通过`$()`获取的dom节点的具体值| 
+|<a href="#3">`css()`</a>| 用来修改元素样式| 
+|<a href="#4">`on()`</a>| 用来绑定事件|
+|<a href="#5">`addText()`</a>| 用来在dom中添加文本|
+|<a href="#5">`setClass()`</a>| 重新设置元素类名|
+|<a href="#5">`addClass()`</a>|向类名中添加新类名 |
+|<a href="#5">`clearClass()`</a>| 删除指定类名|
+|<a href="#6">`addHTML()`</a>| `DOM` 节点中添加 `html` 元素|
+|<a href="#7">`display()`</a>| 元素的显示与隐藏|
+|<a href="#8">`slowin()`</a>|元素淡入 |
+|<a href="#8">`slowou()`</a>| 元素淡出|   
+|<a href="#8">`change()`</a>|淡入淡出交替 |    
+|<a href="#9">`stop()`</a>| 暂停变换(淡入淡出) |  
+|<a href="#10">`father()`</a>|会获取所有元素的父节点|
+|<a href="#11">`brother()`</a>|获取所有兄弟节点|
+|<a href="#12">`son()`</a>|获取所有元素的子节点|
+|<a href="#13">`progeny()`</a>|获取后代节点|
+|<a href="#14">`insert()`</a>|修改`dom`属性中的值|
+|<a href="#15">`Attr()`</a>|获得,设置和添加元素属性|
+|<a href="#16">`DataBroker()`</a>| 数据响应式|
+|<a href="#17">`CreateTable()`</a>|渲染表格|
 
-## 1. `$()` 方法如同jquery的选择器样，传入参数经过处理后获得dom元素，作为属性放在构造函数身上，之后所有的dom操作都是操作这个属性 
+## <font id="1">1</font>. `$()` 方法如同jquery的选择器样，传入参数经过处理后获得dom元素，作为属性放在构造函数身上，之后所有的dom操作都是操作这个属性 
 ```html
     <div class="a">
         <span></span>
@@ -41,7 +42,7 @@
  console.log($(this));
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221012192830.png)<br>
-## 2. 在CrDom.js中可以同时获得多个dom元素，形成数组放在构造函数上，可用通过 eq()方法来选择要操作的dom;
+## <font id="2">2</font>. 在CrDom.js中可以同时获得多个dom元素，形成数组放在构造函数上，可用通过 eq()方法来选择要操作的dom;
 ```html
     <div class="a">
         <span></span>
@@ -52,7 +53,7 @@
  console.log($('span').eq(0));
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221012193504.png)<br>
-## 3. 修改样式 使用 css() 来更改通过传入对象或具体的值来修改
+## <font id="3">3</font>. 修改样式 使用 css() 来更改通过传入对象或具体的值来修改
 ```html
     <div class="a">
         <span>hello</span>
@@ -66,7 +67,7 @@
     });
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221012194001.png)<br>
-## 4. 绑定事件 通过 on() 来绑定事件
+## <font id="4">4</font>. 绑定事件 通过 on() 来绑定事件
 ```html
     <div class="a">
         <span></span>
@@ -78,7 +79,7 @@
         alert('hello word');
     })
 ```
-## 5. 添加文本 添加类名 修改类名
+## <font id="5">5</font>. 添加文本 添加类名 修改类名 删除指定类名
 ```html
     <div class="a">
         <span></span>
@@ -102,7 +103,20 @@ $('span').eq(1).addClass('blo');
 //删除指定类名
 $('span').eq(1).clearClass('blo');
 ```
-## 6. 元素的隐藏与显示    在点击事件中 请使用 `let node = $('.tu')` 使用变量来接收到实例,不要直接使用 `$('.tu').display()`因为这样每次调用都会生成一个新对象 
+## <font id="6">6</font>. `addHTML()`可以向 `DOM` 节点中添加 `html` 元素,
+```html
+<div id="app"></div>
+```
+```js
+// 方法有两种方式
+//1.传入两个参数，第一个参数标签名 string 类型，第二个参数是添加的标签的文本内容
+//这种方式如果dom中有内容不会覆盖而是在尾部添加
+$('#app').addHTML('span','添加的span标签');
+//2.传入一个参数，传入一个含有html标签的字符串数据
+$('#app').addHTML('<span>添加的span标签</span>');
+```
+
+## <font id="7">7</font>. 元素的隐藏与显示    在点击事件中 请使用 `let node = $('.tu')` 使用变量来接收到实例,不要直接使用 `$('.tu').display()`因为这样每次调用都会生成一个新对象 
 ```html
     <div class="a">
         <span></span>
@@ -117,7 +131,7 @@ $('span').eq(1).clearClass('blo');
     })
 ```
 ![image](./gif/QQ%E5%BD%95%E5%B1%8F20221012203346.gif)<br>
-## 7. 淡入淡出
+## <font id="8">8</font>. 淡入淡出
 + 7.1  淡入 使用 `slowin()` 传入一个时间参数 单位 S 
 ```html
     <div class="a">
@@ -161,7 +175,7 @@ let node = $('span').eq(1);
     })
 ```
 ![image](./gif/QQ%E5%BD%95%E5%B1%8F20221012205506.gif)<br>
-## 8. 暂停动画 防止动画快速切换时剧烈变化 使用 `stop()`
+## <font id="9">9</font>. 暂停动画 防止动画快速切换时剧烈变化 使用 `stop()`
 ```html
     <div class="a">
         <span></span>
@@ -174,7 +188,7 @@ let node = $('span').eq(1);
         node.stop().change(1);
     })
 ```
-## 9. 获取父节点 `father()`会获取所有元素的父节点
+## <font id="10">10</font>. 获取父节点 `father()`会获取所有元素的父节点
 ```html
     <div class="a">
         <span></span>
@@ -185,7 +199,7 @@ let node = $('span').eq(1);
 console.log($('span').father());
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221012210226.png)<br>
-## 10. 获取兄弟节点 `brother()` 获取所有兄弟节点
+## <font id="11">11</font>. 获取兄弟节点 `brother()` 获取所有兄弟节点
 ```html
     <div class="a">
         <span class="one"></span>
@@ -196,7 +210,7 @@ console.log($('span').father());
     console.log($('span').eq(0).brother());
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221012210537.png)<br>
-## 11. 获取子节点 `son()` 获取所有元素的子节点
+## <font id="12">12</font>. 获取子节点 `son()` 获取所有元素的子节点
 ```html
     <div class="a">
         <span class="one"></span>
@@ -207,7 +221,7 @@ console.log($('span').father());
 console.log($('div').son());
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221012210808.png)<br>
-## 12. 获取后代节点 `progeny()` 必须传参数 可以传 标签名 类名 css选择器
+## <font id="13">13</font>. 获取后代节点 `progeny()` 必须传参数 可以传 标签名 类名 css选择器
 ```html
     <div class="a">
         <span class="one">
@@ -220,7 +234,7 @@ console.log($('div').son());
     console.log($('div').progeny('a'));
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221012211426.png)<br>
-## 13. `insert()` 方法可以通过传参 修改 `$()` 方法获取的dom节点 `dom` 属性会发生改变，可以传入单个dom节点,有多个dom节点可以通过数组方式传入
+## <font id="14">14</font>. `insert()` 方法可以通过传参 修改 `$()` 方法获取的dom节点 `dom` 属性会发生改变，可以传入单个dom节点,有多个dom节点可以通过数组方式传入
 ```html
     <div class="a">
         <span class="one"></span>
@@ -234,7 +248,7 @@ console.log($('div').son());
     })
 ```
 ![image](./img/QQ%E6%88%AA%E5%9B%BE20221012211833.png)<br>
-## 14 `Attr()` 方法可以用来获取，设置，添加元素的属性 例如 `src` `class` `title` 等
+## <font id="15">15</font> `Attr()` 方法可以用来获取，设置，添加元素的属性 例如 `src` `class` `title` 等
 ```html
     <div class="a">
         <span class="one"></span>
@@ -252,7 +266,7 @@ console.log($('div').son());
     //如果传入数组该方法会通过获取元素的个数依次添加数组中的值
     $('span').Attr('index',['1','2','3'],);
 ```
-## 15. `DataBroker()`数据监听,该方法关注的是数据的改变,当数据改变时会调用一个函数在函数中更新页面
+## <font id="16">16</font>. `DataBroker()`数据监听,该方法关注的是数据的改变,当数据改变时会调用一个函数在函数中更新页面
 ## 对数组进行操作只能使用以下 API 操作 
 `push()`
 `pop()`
@@ -278,7 +292,7 @@ console.log($('div').son());
     }, 500);
 ```
 ![image](./gif/QQ%E5%BD%95%E5%B1%8F20221013212955.gif)<br>
-## 16. `CreateTable()` 渲染表格，传三个参数 第一个通过 `$()` 选这表格在那个位置 第二个传入数据 以数组对象的形式 第三个是数组参数用来选择需要渲染的参数或修改顺序,&nbsp; 这个方法只会渲染 \<tr> \<td> 元素
+## <font id="17">17</font>. `CreateTable()` 渲染表格，传三个参数 第一个通过 `$()` 选这表格在那个位置 第二个传入数据 以数组对象的形式 第三个是数组参数用来选择需要渲染的参数或修改顺序,&nbsp; 这个方法只会渲染 \<tr> \<td> 元素
 ```html
     <table>
         <thead>
