@@ -14,7 +14,7 @@ URL:https://github.com/debfig/CrDom
 
     //* CrDom 构造函数
     function CrDom(doms = '') {
-        this.CrDom = "1.1.5";
+        this.CrDom = "1.1.6";
         this.dom = this.ifthis(doms);
         this.ObjectMethodStatus = {
             //显示隐藏状态
