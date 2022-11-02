@@ -445,7 +445,7 @@ URL:https://github.com/debfig/CrDom
         //调用一次
         DataMonitor(object, value, fun);
         if (state) { fun() };
-    }
+    };
 
     //TODO 渲染表格
     $.CreateTable = function (dom, data, sort) {
