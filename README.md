@@ -27,7 +27,7 @@
 |<a href="#13">`progeny()`</a>|获取后代节点|
 |<a href="#14">`insert()`</a>|修改`dom`属性中的值|
 |<a href="#15">`Attr()`</a>|获得,设置和添加元素属性|
-|<a href="#16">`DataBroker()`</a>| 数据响应式|
+|<a href="#16">`DataBroker()`</a>| 数据监听|
 |<a href="#17">`CreateTable()`</a>|渲染表格|
 
 ## <font id="1">1</font>. `$()` 方法如同jquery的选择器样，传入参数经过处理后获得dom元素，作为属性放在构造函数身上，之后所有的dom操作都是操作这个属性 
