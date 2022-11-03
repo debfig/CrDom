@@ -447,6 +447,25 @@ URL:https://github.com/debfig/CrDom
         if (state) { fun() };
     };
 
+    //数据渲染视图
+    $.DataView = function (dataname, data, container) {
+        let containers = document.querySelector(container);
+        let dom = [...containers.querySelectorAll(`[${dataname}]`)];
+        if (!containers.getAttribute('state')) {
+            for (let k in data) {
+                let son = [...containers.querySelectorAll(`[${k}]`)];
+                for (let i of son) {
+                    i.innerText = typeof data[k] == 'number' || typeof data[k] == 'string' ? data[k] : '';
+                }
+            }
+            containers.setAttribute('state', true);
+        } else {
+            for (let i of dom) {
+                i.innerText = typeof data[dataname] == 'number' || typeof data[dataname] == 'string' ? data[dataname] : '';
+            }
+        }
+    };
+
     //TODO 渲染表格
     $.CreateTable = function (dom, data, sort) {
         for (let d of dom.dom) { d.innerHTML = ""; };
