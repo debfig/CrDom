@@ -28,8 +28,9 @@
 |<a href="#13">`progeny()`</a>|获取后代节点|
 |<a href="#14">`insert()`</a>|修改`dom`属性中的值|
 |<a href="#15">`Attr()`</a>|获得,设置和添加元素属性|
-|<a href="#16">`DataBroker()`</a>| 数据监听|
-|<a href="#17">`CreateTable()`</a>|渲染表格|
+|<a href="#16">`$.DataBroker()`</a>| 数据监听|
+|<a href="#17">`$.DataView`</a>|数据视图 不支持链式调用|
+|<a href="#18">`$.CreateTable()`</a>|渲染表格|
 
 ## <font id="1">1</font>. `$()` 方法如同jquery的选择器样，传入参数经过处理后获得dom元素，作为属性放在构造函数身上，之后所有的dom操作都是操作这个属性 
 ```html
@@ -295,7 +296,29 @@ console.log($('div').son());
     }, 500);
 ```
 ![image](./gif/QQ%E5%BD%95%E5%B1%8F20221013212955.gif)<br>
-## <font id="17">17</font>. `CreateTable()` 渲染表格，传三个参数 第一个通过 `$()` 选这表格在那个位置 第二个传入数据 以数组对象的形式 第三个是数组参数用来选择需要渲染的参数或修改顺序,&nbsp; 这个方法只会渲染 \<tr> \<td> 元素
+## <font id="17">17</font>. `DataView()` 数据视图 该方法需要配合数据监听来使用,通过在容器下的标签上添加跟数据监听中要监听的属性同名的标签属性就可以实现数据视图,DataView()写在数据监听方法中的回调中配置好参数,当数据改变使用该数据的`dom`就会更新,$.DataView(key, user, '#user'); `key` 是被修改属性的属性名 `user` 是数据源  `'#user'`是容器
+```html
+<!--使用id设置容器-->
+ <div id="user">
+    <p a></p>
+    <p b></p>
+    <p>计数：<span c></span></p>
+ </div>
+```
+```js
+//数据视图
+    let user = new Object();
+    $.DataBroker(user, {
+        a: 'hello world',
+        b: 1,
+        c: +new Date()
+    }, function (key) {
+        //key 是被修改属性的属性名 user 是数据源  '#user'是容器
+        $.DataView(key, user, '#user');
+    });
+```
+![image](./img/QQ%E6%88%AA%E5%9B%BE20221103160939.png)<br>
+## <font id="18">18</font>. `CreateTable()` 渲染表格，传三个参数 第一个通过 `$()` 选这表格在那个位置 第二个传入数据 以数组对象的形式 第三个是数组参数用来选择需要渲染的参数或修改顺序,&nbsp; 这个方法只会渲染 \<tr> \<td> 元素
 ```html
     <table>
         <thead>
