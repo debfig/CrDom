@@ -1,5 +1,5 @@
 /* 
-CrDom.js JavaScript Library V1.1.5
+CrDom.js JavaScript Library V1.1.6
 作者: 灿烈
 根据MIT许可证发布
 时间：2022/10/21
@@ -455,13 +455,25 @@ URL:https://github.com/debfig/CrDom
             for (let k in data) {
                 let son = [...containers.querySelectorAll(`[${k}]`)];
                 for (let i of son) {
-                    i.innerText = typeof data[k] == 'number' || typeof data[k] == 'string' ? data[k] : '';
+                    if (i.localName == 'input') {
+                        i.addEventListener('input', function () {
+                            data[k] = i.value;
+                        });
+                        i.value = typeof data[k] == 'number' || typeof data[k] == 'string' ? data[k] : '';
+                    } else {
+                        i.innerText = typeof data[k] == 'number' || typeof data[k] == 'string' ? data[k] : '';
+                    }
+
                 }
             }
             containers.setAttribute('state', true);
         } else {
             for (let i of dom) {
-                i.innerText = typeof data[dataname] == 'number' || typeof data[dataname] == 'string' ? data[dataname] : '';
+                if (i.localName == 'input') {
+                    i.value = typeof data[dataname] == 'number' || typeof data[dataname] == 'string' ? data[dataname] : '';
+                } else {
+                    i.innerText = typeof data[dataname] == 'number' || typeof data[dataname] == 'string' ? data[dataname] : '';
+                }
             }
         }
     };
