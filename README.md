@@ -313,7 +313,7 @@ console.log($('div').son());
         b: 1,
         c: +new Date()
     }, function (key) {
-        //key 是被修改属性的属性名 user 是数据源  '#user'是容器
+        //key 是被修改属性的属性名 user 是数据源  '#user'是容器  在后面还可以传两个参数 第一个是布尔类型 传 true 开启防抖 第二个 数值类型控制 控制防抖时间 
         $.DataView(key, user, '#user');
     });
 ```
