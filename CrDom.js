@@ -375,6 +375,7 @@ URL:https://github.com/debfig/CrDom
     //====================================================================
     //=========                  添加函数方法                  ============
     //====================================================================
+    $.edition = '1.1.6'
 
     //TODO 数据监听
     $.DataBroker = function (object, value, fun, state = true) {
@@ -516,5 +517,8 @@ URL:https://github.com/debfig/CrDom
     //====================================================================
     //* 在 window 上添加 构造函数
     window.$ = window.CrDom = $;
-
+    console.log('查看更多信息到:https://github.com/debfig/CrDom');
+    console.log(`%c CrDom.js %c v${this.$.edition} `,
+        'background: #35495e; padding: 2px; border-radius: 3px 0 0 3px; color: #fff;',
+        'background: #41b883; padding: 2px; border-radius: 0 3px 3px 0; color: #fff',);
 })(window, undefined)
