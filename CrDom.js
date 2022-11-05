@@ -448,34 +448,44 @@ URL:https://github.com/debfig/CrDom
     };
 
     //数据渲染视图
-    $.DataView = function (dataname, data, container) {
+    $.DataView = function (dataname, data, container, state = false, date = 500) {
+        let time = null;
         let containers = document.querySelector(container);
         let dom = [...containers.querySelectorAll(`[${dataname}]`)];
         if (!containers.getAttribute('state')) {
             for (let k in data) {
                 let son = [...containers.querySelectorAll(`[${k}]`)];
                 for (let i of son) {
-                    if (i.localName == 'input') {
+                    if (i.localName == 'input' || i.localName == 'textarea') {
                         i.addEventListener('input', function () {
-                            data[k] = i.value;
+                            if (state) {
+                                //防抖语句
+                                if (time !== null) {
+                                    clearTimeout(time);
+                                };
+                                time = setTimeout(() => {
+                                    data[k] = i.value;
+                                }, date);
+                            } else {
+                                data[k] = i.value;
+                            };
                         });
                         i.value = typeof data[k] == 'number' || typeof data[k] == 'string' ? data[k] : '';
                     } else {
                         i.innerText = typeof data[k] == 'number' || typeof data[k] == 'string' ? data[k] : '';
-                    }
-
-                }
-            }
+                    };
+                };
+            };
             containers.setAttribute('state', true);
         } else {
             for (let i of dom) {
-                if (i.localName == 'input') {
+                if (i.localName == 'input' || i.localName == 'textarea') {
                     i.value = typeof data[dataname] == 'number' || typeof data[dataname] == 'string' ? data[dataname] : '';
                 } else {
                     i.innerText = typeof data[dataname] == 'number' || typeof data[dataname] == 'string' ? data[dataname] : '';
-                }
-            }
-        }
+                };
+            };
+        };
     };
 
     //TODO 渲染表格
