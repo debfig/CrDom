@@ -1,5 +1,6 @@
 #  CrDom.js
 <img style="width: 100px; height: auto;" src="./img/QQ23013617022915519020221102221417.svg"></img>
+
 ## 这是一个类似于jquery的js库，操作dom,用来构造动画和一些其他的js方法库,也采用了链式调用
 
 | 方法与属性   | 作用 |  
@@ -345,4 +346,4 @@ console.log($('div').son());
 //添加数组参数选择 需要渲染的参数或顺序
     $.CreateTable($('tbody'), data,['id','cityID','city','father'])
 ```
-![image](./img/QQ%E6%88%AA%E5%9B%BE20221014190135.png)<br> 
+![image](./img/QQ%E6%88%AA%E5%9B%BE20221014190135.png)<br>
