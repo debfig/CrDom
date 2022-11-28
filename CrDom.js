@@ -393,6 +393,10 @@ URL:https://github.com/debfig/CrDom
             d_fun(i);
           }
         });
+        //改变方法的 this 指向
+        if (typeof addobject == 'function') {
+          object[i].call(object);
+        }
       };
       //数组API劫持 函数
       function ArrayBroker(arr, funs) {
