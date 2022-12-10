@@ -379,6 +379,7 @@ URL:https://github.com/debfig/CrDom
 
   //TODO 数据监听
   $.DataBroker = function (object, value, fun, state = true) {
+    let _this = object
     //内部函数方便自调用
     let DataMonitor = function (d_object, d_value, d_fun) {
       //设置get和set 函数
@@ -409,7 +410,16 @@ URL:https://github.com/debfig/CrDom
             setTimeout(function () {
               funs(method);
             }, 0);
-            return Array.prototype[method].call(this, ...args);
+
+            let tempdata = args;
+            let tempObj = new Object();
+            //! 判断push操作
+            if (method == 'push' || method == 'unshift') {
+              DataMonitor(tempObj, ...tempdata, funs(method));
+            }
+
+            tempdata = [tempObj];
+            return Array.prototype[method].call(this, ...tempdata);
           };
         });
         arr.__proto__ = newPrototype;
@@ -449,7 +459,7 @@ URL:https://github.com/debfig/CrDom
     };
     //调用一次
     DataMonitor(object, value, fun);
-    if (state) { fun() };
+    if (state) { fun.call(_this) };
   };
 
   //数据渲染视图
